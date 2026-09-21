@@ -7,6 +7,7 @@ body { margin: 0; background: var(--night); color: var(--mist); font-family: Geo
 button { font: inherit; }
 .scene-shell { min-height: 100svh; position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: 1.5rem clamp(1.25rem, 5vw, 5.5rem) 1.75rem; }
 .scene-image { position: absolute; z-index: -2; inset: 0; background: url("/alpine-lake.png") center / cover no-repeat; transform: scale(1.02); animation: breathe 18s ease-in-out infinite alternate; }
+.scene-image.scene-1 { background-image: url("/fjord-mist.png"); }
 .scene-vignette { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(2,13,24,.84) 0%, rgba(2,13,24,.4) 46%, rgba(2,13,24,.15) 100%), linear-gradient(0deg, rgba(2,13,24,.85) 0%, transparent 43%, rgba(2,13,24,.24) 100%); }
 .topbar, footer { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
 .brand { color: var(--mist); text-decoration: none; display: inline-flex; align-items: center; gap: .55rem; font-size: 1.35rem; letter-spacing: .14em; font-weight: 700; }.brand-mark { color: var(--sun); font-size: 2rem; line-height: .6; }

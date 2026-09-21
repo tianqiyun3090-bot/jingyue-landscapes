@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <main className="scene-shell">
-      <div className="scene-image" aria-hidden="true" />
+      <div className={`scene-image scene-${active}`} aria-hidden="true" />
       <div className="scene-vignette" aria-hidden="true" />
       <nav className="topbar" aria-label="主导航">
         <a className="brand" href="#top" aria-label="境阅首页"><span className="brand-mark" aria-hidden="true">⌁</span><span>境阅</span></a>
