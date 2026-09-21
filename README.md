@@ -1,4 +1,19 @@
-# vinext-starter
+# 境阅 · 风景漫游
+
+一个沉浸式自然风景浏览网站。首页以全屏摄影为画面核心，用户可以在不同目的地之间切换，安静地欣赏雪山湖泊、峡湾晨雾等风景。
+
+## 中文简介
+
+- **沉浸式观景**：以大幅自然风景作为背景，配合克制的文字与导航，让注意力回到景色本身。
+- **目的地切换**：点击底部的目的地卡片，即可切换当前观赏地点与对应背景。
+- **响应式体验**：针对桌面与移动设备调整布局，保留清晰易读的内容与操作。
+- **技术栈**：使用 Vinext、React、TypeScript 与 Tailwind CSS 构建，并部署在 Sites 托管服务上。
+
+在线访问：[境阅 · 风景漫游](https://jingyue-landscapes.tianqiyun3090.chatgpt.site)
+
+---
+
+# Vinext Starter
 
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
