@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root { --night: #07182a; --mist: #e9f3f5; --sun: #f4c77b; }
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body { margin: 0; background: var(--night); color: var(--mist); font-family: Georgia, "Noto Serif SC", serif; }
+button { font: inherit; }
+.scene-shell { min-height: 100svh; position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: 1.5rem clamp(1.25rem, 5vw, 5.5rem) 1.75rem; }
+.scene-image { position: absolute; z-index: -2; inset: 0; background: url("/alpine-lake.png") center / cover no-repeat; transform: scale(1.02); animation: breathe 18s ease-in-out infinite alternate; }
+.scene-vignette { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(2,13,24,.84) 0%, rgba(2,13,24,.4) 46%, rgba(2,13,24,.15) 100%), linear-gradient(0deg, rgba(2,13,24,.85) 0%, transparent 43%, rgba(2,13,24,.24) 100%); }
+.topbar, footer { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+.brand { color: var(--mist); text-decoration: none; display: inline-flex; align-items: center; gap: .55rem; font-size: 1.35rem; letter-spacing: .14em; font-weight: 700; }.brand-mark { color: var(--sun); font-size: 2rem; line-height: .6; }
+.nav-note { font-size: .88rem; letter-spacing: .15em; opacity: .72; margin: 0; }.sound-button { color: var(--mist); background: rgba(234,245,245,.1); border: 1px solid rgba(234,245,245,.34); border-radius: 999px; padding: .5rem .85rem; cursor: pointer; font-size: .83rem; }
+.stage { margin: auto 0; padding: 4rem 0 3.5rem; max-width: 43rem; }.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: Arial, "Noto Sans SC", sans-serif; text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; font-weight: 700; }
+h1 { font-size: clamp(3.7rem,9vw,8rem); letter-spacing: .06em; line-height: .94; margin: 0; text-shadow: 0 4px 36px rgba(0,0,0,.26); font-weight: 500; }.place-meta { font-family: Arial, "Noto Sans SC", sans-serif; margin: 1.3rem 0 .7rem; font-size: 1rem; letter-spacing: .13em; }.place-description { margin: 0; font-size: 1.15rem; line-height: 1.8; opacity: .86; }
+.compass { position: absolute; right: clamp(1.25rem,5vw,5.5rem); top: 46%; display: grid; justify-items: center; gap: .45rem; font-family: Arial,sans-serif; font-size: .67rem; letter-spacing: .13em; opacity: .85; }.north { color: var(--sun); font-weight: 700; }.compass-line { display: block; width: 1px; height: 4rem; background: linear-gradient(var(--sun),rgba(234,245,245,.22)); }
+.journey { width: min(100%,52rem); margin-left: auto; backdrop-filter: blur(12px); background: rgba(3,19,31,.36); border: 1px solid rgba(235,247,246,.2); border-radius: 1.15rem; padding: 1.15rem; }.journey-heading { display: flex; align-items: baseline; justify-content: space-between; padding: 0 .25rem .8rem; font-family: Arial,"Noto Sans SC",sans-serif; color: rgba(233,243,245,.73); font-size: .77rem; letter-spacing: .1em; }.journey-heading .eyebrow { margin: 0; }
+.place-list { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }.place-card { text-align: left; min-height: 5.75rem; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .7rem; padding: .75rem; background: transparent; color: var(--mist); border: 1px solid transparent; border-radius: .75rem; cursor: pointer; transition: background .25s,border-color .25s,transform .25s; }.place-card:hover,.place-card:focus-visible,.place-card.is-active { background: rgba(241,249,247,.14); border-color: rgba(241,249,247,.4); outline: none; }.place-card:hover { transform: translateY(-2px); }.card-index,.card-arrow { font-family: Arial,sans-serif; color: var(--sun); font-size: .72rem; }.card-copy { display: grid; gap: .28rem; }.card-copy strong { font-size: 1rem; font-weight: 500; }.card-copy small { font-family: Arial,"Noto Sans SC",sans-serif; font-size: .7rem; color: rgba(233,243,245,.7); }
+footer { padding-top: 1rem; font-family: Arial,"Noto Sans SC",sans-serif; font-size: .68rem; letter-spacing: .1em; color: rgba(233,243,245,.68); }
+@keyframes breathe { to { transform: scale(1.075); } }
+@media (max-width: 680px) { .scene-shell { padding-top: 1.25rem; }.nav-note,.compass { display:none; }.stage { padding: 7rem 0 3.25rem; }.place-list { grid-template-columns: 1fr; }.place-card { min-height: 3.7rem; }.journey { margin: 0; } footer span:last-child { display:none; } }
+@media (prefers-reduced-motion: reduce) { .scene-image { animation:none; }.place-card { transition:none; } }
