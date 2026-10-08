@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f1e9" />
+    <meta name="description" content="境阅，一扇随时打开的远方之窗。慢一点，看看雪山、湖泊与峡湾。" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23283b35'/%3E%3Cpath d='M8 25c5-8 9-8 14 0s9 8 14 0' fill='none' stroke='%23e8bd80' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>境阅 · 风景漫游</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #24332e;
+        --muted: #75817a;
+        --paper: #f3f1e9;
+        --paper-deep: #e9e7de;
+        --accent: #d9a96e;
+        --serif: "Songti SC", "Noto Serif CJK SC", "STSong", Georgia, serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      a { color: inherit; }
+
+      .hero {
+        position: relative;
+        display: flex;
+        min-height: min(860px, 100svh);
+        min-height: max(680px, 100svh);
+        flex-direction: column;
+        overflow: hidden;
+        color: #fff;
+        isolation: isolate;
+        background: #24332e;
+      }
+      .hero__image, .hero__shade { position: absolute; inset: 0; z-index: -1; }
+      .hero__image { width: 100%; height: 100%; object-fit: cover; object-position: center 53%; animation: arrive 1.1s ease-out both; }
+      .hero__shade { background: linear-gradient(90deg, rgba(13, 24, 28, .64) 0%, rgba(13, 24, 28, .28) 48%, rgba(13, 24, 28, .04) 100%), linear-gradient(0deg, rgba(9, 19, 23, .4), transparent 46%); }
+      .topbar { display: flex; align-items: center; justify-content: space-between; width: min(1360px, calc(100% - 96px)); margin: 0 auto; padding: 31px 0; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+      .brand__mark { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid rgba(255,255,255,.54); border-radius: 50%; color: #f4d4a5; font-family: var(--serif); font-size: 23px; line-height: 1; }
+      .brand__name { font-family: var(--serif); font-size: 21px; letter-spacing: .17em; }
+      .brand__latin { margin-left: 2px; color: rgba(255,255,255,.66); font-size: 9px; letter-spacing: .22em; }
+      .nav { display: flex; align-items: center; gap: 34px; color: rgba(255,255,255,.82); font-size: 13px; }
+      .nav a { text-decoration: none; transition: color .2s ease; }
+      .nav a:hover { color: #f4d4a5; }
+      .nav__line { width: 30px; height: 1px; background: rgba(255,255,255,.58); }
+
+      .hero__content { width: min(1360px, calc(100% - 96px)); margin: auto; padding: 65px 0 110px; }
+      .eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 24px; color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+      .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
+      h1, h2, h3, p { margin-top: 0; }
+      .hero h1 { max-width: 680px; margin-bottom: 22px; font-family: var(--serif); font-size: clamp(54px, 7vw, 92px); font-weight: 400; letter-spacing: .055em; line-height: 1.25; }
+      .hero h1 span { color: #f3d7ae; }
+      .hero__description { max-width: 370px; margin-bottom: 34px; color: rgba(255,255,255,.8); font-size: 15px; line-height: 1.95; letter-spacing: .045em; }
+      .primary-link { display: inline-flex; min-height: 50px; align-items: center; gap: 27px; padding: 0 19px 0 22px; border: 1px solid rgba(255,255,255,.62); border-radius: 2px; color: #fff; font-size: 13px; letter-spacing: .08em; text-decoration: none; transition: background .2s ease, border-color .2s ease, color .2s ease; }
+      .primary-link:hover { border-color: #f3d7ae; background: #f3d7ae; color: var(--ink); }
+      .primary-link span { color: #f3d7ae; font-size: 19px; transition: transform .2s ease; }
+      .primary-link:hover span { color: var(--ink); transform: translateY(3px); }
+      .hero__caption { position: absolute; right: max(48px, calc((100vw - 1360px) / 2)); bottom: 43px; display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,.76); font-size: 11px; letter-spacing: .12em; }
+      .hero__caption::before { width: 42px; height: 1px; background: var(--accent); content: ""; }
+
+      .journey { display: grid; grid-template-columns: minmax(245px, .76fr) minmax(0, 1.6fr); gap: clamp(45px, 8vw, 128px); align-items: center; width: min(1200px, calc(100% - 96px)); margin: 0 auto; padding: 128px 0 132px; }
+      .journey__intro { max-width: 330px; }
+      .journey__intro .eyebrow { margin-bottom: 22px; color: #92734e; }
+      .journey h2 { margin-bottom: 20px; font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px); font-weight: 400; letter-spacing: .06em; line-height: 1.45; }
+      .journey__intro > p:last-of-type { margin-bottom: 34px; color: var(--muted); font-size: 14px; line-height: 2; }
+      .destination-list { display: grid; gap: 10px; }
+      .destination { display: grid; grid-template-columns: 64px 1fr 24px; gap: 15px; align-items: center; width: 100%; padding: 10px 12px 10px 10px; border: 1px solid transparent; background: transparent; color: var(--ink); cursor: pointer; text-align: left; transition: background .24s ease, border-color .24s ease; }
+      .destination:hover, .destination[aria-selected="true"] { border-color: rgba(36,51,46,.13); background: rgba(255,255,255,.52); }
+      .destination img { width: 64px; height: 54px; border-radius: 1px; object-fit: cover; }
+      .destination__copy { display: grid; gap: 5px; }
+      .destination__copy strong { font-family: var(--serif); font-size: 17px; font-weight: 400; letter-spacing: .05em; }
+      .destination__copy small { color: var(--muted); font-size: 11px; letter-spacing: .06em; }
+      .destination__arrow { color: #8d8f83; font-size: 19px; opacity: .72; transition: transform .2s ease, color .2s ease; }
+      .destination[aria-selected="true"] .destination__arrow { color: #9e7044; transform: translateX(3px); }
+
+      .scene { position: relative; min-height: 500px; overflow: hidden; background: #354944; color: #fff; }
+      .scene__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .4s ease, transform .8s ease; }
+      .scene.is-changing .scene__image { opacity: .25; transform: scale(1.025); }
+      .scene__shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12,24,26,.72), rgba(12,24,26,.03) 70%); }
+      .scene__content { position: absolute; inset: auto 0 0; padding: clamp(25px, 4vw, 48px); }
+      .scene__index { margin-bottom: 12px; color: #f2d4a8; font-size: 11px; letter-spacing: .19em; }
+      .scene h3 { margin-bottom: 6px; font-family: var(--serif); font-size: clamp(29px, 4vw, 42px); font-weight: 400; letter-spacing: .07em; }
+      .scene__region { margin: 0; color: rgba(255,255,255,.76); font-size: 12px; letter-spacing: .11em; }
+      .scene__note { position: absolute; right: clamp(25px, 4vw, 48px); bottom: clamp(25px, 4vw, 48px); max-width: 180px; margin: 0; color: rgba(255,255,255,.8); font-family: var(--serif); font-size: 15px; line-height: 1.8; text-align: right; }
+
+      .note { display: flex; justify-content: center; padding: 0 24px 106px; text-align: center; }
+      .note__inner { width: min(610px, 100%); padding-top: 42px; border-top: 1px solid #d8d6cd; }
+      .note__inner .eyebrow { justify-content: center; margin-bottom: 17px; color: #92734e; }
+      .note h2 { margin-bottom: 13px; font-family: var(--serif); font-size: clamp(25px, 3.4vw, 36px); font-weight: 400; letter-spacing: .07em; }
+      .note p:last-child { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+      footer { display: flex; justify-content: space-between; width: min(1200px, calc(100% - 96px)); margin: 0 auto; padding: 22px 0 28px; border-top: 1px solid #d8d6cd; color: #888e85; font-size: 10px; letter-spacing: .08em; }
+
+      @keyframes arrive { from { opacity: .5; transform: scale(1.025); } to { opacity: 1; transform: scale(1); } }
+      @media (max-width: 760px) {
+        .hero { min-height: max(650px, 95svh); }
+        .hero__image { object-position: 59% center; }
+        .hero__shade { background: linear-gradient(90deg, rgba(13,24,28,.61), rgba(13,24,28,.13)), linear-gradient(0deg, rgba(9,19,23,.46), transparent 58%); }
+        .topbar, .hero__content { width: calc(100% - 42px); }
+        .topbar { padding: 22px 0; }
+        .brand { gap: 9px; }
+        .brand__mark { width: 32px; height: 32px; font-size: 21px; }
+        .brand__name { font-size: 19px; }
+        .brand__latin, .nav__line { display: none; }
+        .nav { gap: 18px; font-size: 11px; }
+        .hero__content { padding: 70px 0 100px; }
+        .hero h1 { font-size: clamp(51px, 12vw, 72px); }
+        .hero__description { max-width: 300px; font-size: 13px; }
+        .hero__caption { right: 21px; bottom: 25px; font-size: 9px; }
+        .hero__caption::before { width: 25px; }
+        .journey { grid-template-columns: 1fr; gap: 30px; width: calc(100% - 42px); padding: 80px 0 86px; }
+        .journey__intro { max-width: 100%; }
+        .journey h2 { margin-bottom: 13px; font-size: 38px; }
+        .journey__intro > p:last-of-type { margin-bottom: 23px; }
+        .destination-list { grid-template-columns: 1fr 1fr; gap: 6px; }
+        .destination { grid-template-columns: 1fr 18px; gap: 8px; padding: 8px; }
+        .destination img { grid-column: 1 / -1; width: 100%; height: 76px; }
+        .destination__copy strong { font-size: 14px; }
+        .destination__copy small { font-size: 9px; }
+        .destination__arrow { font-size: 16px; }
+        .scene { min-height: 390px; }
+        .scene__content { padding: 25px 22px; }
+        .scene__note { right: 22px; bottom: 25px; max-width: 130px; font-size: 12px; }
+        .note { padding: 0 21px 75px; }
+        footer { width: calc(100% - 42px); gap: 20px; font-size: 9px; }
+      }
+      @media (max-width: 390px) {
+        .nav { gap: 12px; }
+        .nav a { font-size: 10px; }
+        .destination-list { grid-template-columns: 1fr; }
+        .destination { grid-template-columns: 64px 1fr 18px; }
+        .destination img { grid-column: auto; width: 64px; height: 52px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <img class="hero__image" src="assets/alpine-lake.png" alt="暮色中的阿尔卑斯雪山与湖泊" />
+        <div class="hero__shade" aria-hidden="true"></div>
+        <header class="topbar">
+          <a class="brand" href="#top" aria-label="境阅首页">
+            <span class="brand__mark" aria-hidden="true">⌁</span>
+            <span class="brand__name">境阅</span>
+            <span class="brand__latin">JINGYUE</span>
+          </a>
+          <nav class="nav" aria-label="主导航">
+            <a href="#journeys">风景漫游</a>
+            <span class="nav__line" aria-hidden="true"></span>
+            <a href="#about">关于境阅</a>
+          </nav>
+        </header>
+        <div class="hero__content">
+          <p class="eyebrow">给日常一点远方</p>
+          <h1 id="hero-title">把远方，<br /><span>留给此刻。</span></h1>
+          <p class="hero__description">打开一扇安静的窗。让视线越过雪山与湖泊，去远方停留片刻。</p>
+          <a class="primary-link" href="#journeys">开始漫游 <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero__caption"><span>奥地利 · 阿尔卑斯山</span><span>46°31′ N</span></div>
+      </section>
+
+      <section class="journey" id="journeys" aria-labelledby="journey-title">
+        <div class="journey__intro">
+          <p class="eyebrow">01 / 找一处风景</p>
+          <h2 id="journey-title">这一刻，<br />想去哪里？</h2>
+          <p>不必计划行程。选一处远方，让视线先抵达。</p>
+          <div class="destination-list" role="tablist" aria-label="选择漫游目的地">
+            <button class="destination" type="button" role="tab" aria-selected="true" aria-controls="scene-panel" data-scene="alpine">
+              <img src="assets/alpine-lake.png" alt="" />
+              <span class="destination__copy"><strong>阿尔卑斯湖</strong><small>奥地利 · 暮光</small></span>
+              <span class="destination__arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="destination" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="fjord" tabindex="-1">
+              <img src="assets/fjord-mist.png" alt="" />
+              <span class="destination__copy"><strong>峡湾晨雾</strong><small>挪威 · 清晨</small></span>
+              <span class="destination__arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="scene" id="scene-panel" role="tabpanel" aria-live="polite" aria-labelledby="scene-title">
+          <img class="scene__image" src="assets/alpine-lake.png" alt="阿尔卑斯雪峰倒映在宁静湖面" />
+          <div class="scene__shade" aria-hidden="true"></div>
+          <div class="scene__content">
+            <p class="scene__index" id="scene-index">01 — 02</p>
+            <h3 id="scene-title">阿尔卑斯湖</h3>
+            <p class="scene__region" id="scene-region">奥地利 · 暮光</p>
+          </div>
+          <p class="scene__note" id="scene-note">雪山倒映进夜色<br />风也慢了下来</p>
+        </div>
+      </section>
+
+      <section class="note" id="about" aria-labelledby="about-title">
+        <div class="note__inner">
+          <p class="eyebrow">02 / 关于境阅</p>
+          <h2 id="about-title">一扇随时打开的远方之窗。</h2>
+          <p>境阅，让你在忙碌的日常里，也能为自己留下一段安静的风景。</p>
+        </div>
+      </section>
+    </main>
+    <footer><span>© 2026 境阅 · 风景漫游</span><a href="#top">回到远方 ↑</a></footer>
+
+    <script>
+      const scenes = {
+        alpine: {
+          title: "阿尔卑斯湖",
+          region: "奥地利 · 暮光",
+          note: "雪山倒映进夜色<br />风也慢了下来",
+          image: "assets/alpine-lake.png",
+          alt: "阿尔卑斯雪峰倒映在宁静湖面",
+          index: "01 — 02",
+        },
+        fjord: {
+          title: "峡湾晨雾",
+          region: "挪威 · 清晨",
+          note: "云从水面缓缓醒来<br />世界还没有开始喧闹",
+          image: "assets/fjord-mist.png",
+          alt: "晨雾笼罩挪威峡湾与群山",
+          index: "02 — 02",
+        },
+      };
+      const panel = document.querySelector(".scene");
+      const image = document.querySelector(".scene__image");
+      const tabs = [...document.querySelectorAll(".destination")];
+
+      function selectScene(name, focusTab = false) {
+        const scene = scenes[name];
+        if (!scene) return;
+        panel.classList.add("is-changing");
+        window.setTimeout(() => {
+          image.src = scene.image;
+          image.alt = scene.alt;
+          document.querySelector("#scene-title").textContent = scene.title;
+          document.querySelector("#scene-region").textContent = scene.region;
+          document.querySelector("#scene-note").innerHTML = scene.note;
+          document.querySelector("#scene-index").textContent = scene.index;
+          panel.classList.remove("is-changing");
+        }, 150);
+        tabs.forEach((tab) => {
+          const active = tab.dataset.scene === name;
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+        });
+        if (focusTab) tabs.find((tab) => tab.dataset.scene === name)?.focus();
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => selectScene(tab.dataset.scene));
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+          const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
+          selectScene(tabs[next].dataset.scene, true);
+        });
+      });
+    </script>
+  </body>
+</html>
